@@ -1,0 +1,144 @@
+/* PK-200 取扱説明書 HTML5 版のスタイル。
+   DITA-OT 標準の commonltr.css のあとに読み込まれる(project.yaml の args.css)。 */
+:root {
+  --ink: #1c2530;
+  --muted: #5c6770;
+  --primary: #1f4e79;
+  --rule: #d5dbe1;
+  --surface: #f5f7f9;
+  --danger: #c8102e;
+  --warning: #ff8200;
+  --caution: #ffd100;
+  --notice: #0072ce;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #fff;
+  font-family: "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", "Hiragino Sans", Meiryo, "Segoe UI", sans-serif;
+  line-height: 1.8;
+}
+/* トピックのページ: 左に目次、右に本文 */
+body:has(> main) {
+  display: grid;
+  grid-template-columns: 17rem minmax(0, 1fr);
+  min-height: 100vh;
+}
+/* 各マニュアルの入口(index.html): 目次だけのページ */
+body:not(:has(> main)) { max-width: 44rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+body:not(:has(> main)) > nav { background: none; border: 0; padding: 0; font-size: 1rem; }
+body:not(:has(> main)) > nav li > a { padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--rule); border-radius: 0; }
+body:not(:has(> main)) > nav li > span { padding-left: 0.7rem; }
+a { color: var(--primary); }
+a:hover { text-decoration: none; }
+
+/* ナビゲーション(目次) */
+nav.toc, nav[role="toc"] {
+  background: var(--surface);
+  border-right: 1px solid var(--rule);
+  padding: 1.5rem 1rem 2rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+nav ul { list-style: none; margin: 0; padding: 0; }
+nav ul ul { padding-left: 1rem; border-left: 2px solid var(--rule); margin: 0.15rem 0 0.4rem 0.3rem; }
+nav li { margin: 0.1rem 0; }
+nav li > a, nav li > span { display: block; padding: 0.3rem 0.5rem; border-radius: 4px; text-decoration: none; color: var(--ink); }
+nav li > span { color: var(--muted); font-weight: 700; margin-top: 0.6rem; }
+nav li > a:hover { background: #e6edf3; }
+nav li.active > a { background: var(--primary); color: #fff; font-weight: 700; }
+
+/* 本文 */
+main, body > article { padding: 2rem 2.5rem 4rem; max-width: 56rem; min-width: 0; }
+h1.topictitle1, h1.title {
+  font-size: 1.75rem; line-height: 1.35; color: var(--primary);
+  margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--primary);
+}
+h2.sectiontitle, h2.topictitle2 { font-size: 1.2rem; margin: 2rem 0 0.5rem; color: var(--primary); }
+.sectiontitle, .tasklabel { font-weight: 700; }
+p.shortdesc { color: var(--muted); font-size: 1.02rem; margin: 0 0 1.5rem; }
+p { margin: 0.5rem 0; }
+ul.ul, ol.ol { padding-left: 1.5rem; }
+li.li, li.step { margin: 0.3rem 0; }
+
+/* 手順 */
+ol.steps { list-style: none; counter-reset: step; padding: 0; margin: 1.25rem 0; }
+ol.steps > li.step {
+  counter-increment: step; position: relative;
+  padding: 0.15rem 0 0.9rem 3rem; margin: 0;
+}
+ol.steps > li.step::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 2rem; height: 2rem; border-radius: 50%;
+  background: var(--primary); color: #fff; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.cmd { font-weight: 700; }
+.info, .stepresult { color: #3a4550; font-size: 0.95rem; }
+ul.steps-unordered { padding-left: 1.5rem; }
+
+/* 表 */
+table.simpletable, table.table {
+  border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.93rem; line-height: 1.6;
+  border: 1px solid var(--rule);
+}
+table.simpletable th, table.simpletable td, table.table th, table.table td {
+  border: 1px solid var(--rule); padding: 0.45rem 0.7rem; text-align: left; vertical-align: top;
+}
+table.simpletable th, table.table th { background: #e6edf3; font-weight: 700; }
+table.table caption, .tablecap, .figcap { font-size: 0.88rem; font-weight: 700; color: var(--muted); text-align: left; padding: 0.3rem 0; }
+table.docinfo { max-width: 28rem; }
+table.docinfo td:first-child { background: var(--surface); font-weight: 700; width: 9rem; }
+
+/* 図 */
+figure.fig { margin: 1.5rem 0; text-align: center; }
+figure.fig img { max-width: 100%; height: auto; }
+figure.fig .figcap { text-align: center; }
+
+/* 安全表示(hazardstatement) */
+table.hazardstatement {
+  border-collapse: collapse; width: 100%; margin: 1rem 0;
+  border: 2px solid var(--ink); background: #fff;
+}
+table.hazardstatement th {
+  padding: 0.3rem 0.8rem; font-size: 1.1rem; font-weight: 700; text-align: center; letter-spacing: 0.15em; font-style: normal;
+  border: 0; border-bottom: 2px solid var(--ink); text-transform: uppercase;
+}
+table.hazardstatement th svg { vertical-align: -0.12em; margin-right: 0.3em; }
+table.hazardstatement td { border: 0; padding: 0.6rem 0.9rem; vertical-align: middle; }
+table.hazardstatement td:first-child { width: 4.5rem; text-align: center; border-right: 1px solid var(--ink); }
+table.hazardstatement td:first-child svg { width: 2.6rem; height: auto; }
+th.hazardstatement--danger { background: var(--danger); color: #fff; }
+th.hazardstatement--warning { background: var(--warning); color: #000; }
+th.hazardstatement--caution { background: var(--caution); color: #000; }
+th.hazardstatement--notice { background: var(--notice); color: #fff; }
+.messagepanel > div { margin: 0.1rem 0; }
+.typeofhazard { font-weight: 700; }
+
+/* 注記(note) */
+div.note, .note:not(table) {
+  margin: 1rem 0; padding: 0.7rem 1rem; background: var(--surface);
+  border-left: 4px solid var(--primary); border-radius: 0 4px 4px 0; font-size: 0.95rem;
+}
+.note__title, .notetitle { font-weight: 700; color: var(--primary); }
+
+/* トラブルシューティング */
+.troubleSolution, .section.troubleSolution {
+  border: 1px solid var(--rule); border-radius: 6px; padding: 0.4rem 1.1rem 0.6rem; margin: 0.9rem 0;
+}
+.troubleSolution h2, .troubleSolution .sectiontitle { font-size: 1.02rem; margin: 0.5rem 0 0.2rem; color: var(--ink); }
+
+code, .codeph { font-family: Consolas, "SFMono-Regular", Menlo, monospace; background: var(--surface); padding: 0.05rem 0.35rem; border-radius: 3px; }
+
+@media (max-width: 760px) {
+  body:has(> main) { display: block; }
+  nav.toc, nav[role="toc"] { border-right: 0; border-bottom: 1px solid var(--rule); padding: 0.75rem 1rem; }
+  main, body > article { padding: 1.25rem 1rem 3rem; }
+}
+@media print {
+  body:has(> main) { display: block; }
+  nav.toc, nav[role="toc"] { display: none; }
+}
